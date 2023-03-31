@@ -14,6 +14,7 @@ const c = s9.create({
   },
   main: {
     paddingTop: "24px",
+    paddingBottom: "16px",
     gridColumnStart: "main",
   },
   title: {
