@@ -42,15 +42,29 @@ const c = s9.create({
     backgroundColor: '#fff0f0',
   },
   btn: {
-    // fontSize: '1.5em',
-    fontSize: '1.5em',
-    fontWeight: 700,
     backgroundColor: '#334ef1',
-    color: '#fff',
-    padding: '0 1.5em',
     border: 'none',
     borderRadius: '4px',
+    color: '#fff',
+    fontSize: '1.5em',
+    fontWeight: 700,
     lineHeight: 1.5,
+    padding: '0 1.5em',
+    transform: "scale(1)",
+    transition: "all 0.15s",
+
+    ":hover": {
+      cursor: "pointer",
+      transform: "scale(1.05)",
+    },
+    ":focus": {
+      transform: "scale(1.1)",
+      outline: "none",
+    },
+    ":active": {
+      cursor: "pointer",
+      transform: "scale(0.95)",
+    },
   },
 });
 
