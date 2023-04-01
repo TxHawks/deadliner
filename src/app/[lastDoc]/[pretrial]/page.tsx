@@ -125,3 +125,5 @@ export default function Table({ params }: Props) {
     </>
   )
 }
+
+export const runtime = 'experimental-edge';

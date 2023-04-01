@@ -8,6 +8,7 @@ const c = s9.create({
     marginBottom: "1em",
   },
 });
+
 export default function Home() {
   return (
     <h2 className={s9(c.heading)}>
@@ -15,3 +16,5 @@ export default function Home() {
     </h2>
   )
 }
+
+export const runtime = 'experimental-edge';
