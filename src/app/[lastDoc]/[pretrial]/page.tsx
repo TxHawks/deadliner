@@ -1,3 +1,4 @@
+import 'server-only';
 import s9 from "style9";
 import getDeadline from "@/utils/getDeadline";
 import { HebrewCalendar, Locale } from "@hebcal/core";

@@ -1,3 +1,4 @@
+import 'server-only';
 import { addDays, subDays } from "date-fns";
 
 const offdays = [
