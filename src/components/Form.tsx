@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import s9 from "style9";
-import { useRouter, useParams, } from 'next/navigation';
+import { useRouter, usePathname, } from 'next/navigation';
 
 const c = s9.create({
   form: {
@@ -70,7 +70,8 @@ const c = s9.create({
 
 export default function Form() {
   const router = useRouter();
-  const { lastDoc: lastDocFromParams, pretrial: pretrialFromParams, } = useParams();
+  const pathname = usePathname();
+  const [ lastDocFromPath, pretrialFromPath, ] = pathname.split('/').slice(1,3);
 
   const lastDocRef = React.useRef<HTMLInputElement>(null);
   const pretrialRef = React.useRef<HTMLInputElement>(null);
@@ -116,7 +117,7 @@ export default function Form() {
           כתב תשובה:{' '}
           <input
             className={s9(c.input, isDocError && c.isError)}
-            defaultValue={lastDocFromParams || undefined}
+            defaultValue={lastDocFromPath || undefined}
             dir="ltr"
             id="lastDoc"
             name="lastDoc"
@@ -130,7 +131,7 @@ export default function Form() {
           קדם משפט:{' '}
           <input
             className={s9(c.input, isPretrialError && c.isError)}
-            defaultValue={pretrialFromParams || undefined}
+            defaultValue={pretrialFromPath || undefined}
             dir="ltr"
             id="pretrial"
             name="pretrial"
