@@ -42,7 +42,7 @@ const c = s9.create({
     backgroundColor: '#fff0f0',
   },
   btn: {
-    backgroundColor: '#334ef1',
+    backgroundColor: '#e3008e',
     border: 'none',
     borderRadius: '4px',
     color: '#fff',

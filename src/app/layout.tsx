@@ -9,9 +9,7 @@ import './globals.css'
 import type { NextFontWithVariable } from "next/dist/compiled/@next/font/dist/types";
 
 const c = s9.create({
-  body: {
-    backgroundColor: "#eee",
-  },
+  body: {},
   main: {
     paddingTop: "24px",
     paddingBottom: "16px",
@@ -21,7 +19,7 @@ const c = s9.create({
     fontSize: "3em",
     textAlign: "center",
     marginBottom: "0.5em",
-    color: '#334ef1',
+    color: '#e3008e',
   },
   dataWrapper: {
     backgroundColor: "#ccc",
