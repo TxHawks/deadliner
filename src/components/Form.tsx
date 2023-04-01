@@ -15,6 +15,7 @@ const c = s9.create({
     '@media (min-width: 64em)': {
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'stretch',
     }
   },
   inputs: {
