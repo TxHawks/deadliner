@@ -1,11 +1,16 @@
 import s9 from "style9";
 import getDeadline from "@/utils/getDeadline";
+import { HebrewCalendar, Locale } from "@hebcal/core";
 
 const c = s9.create({
   heading: {
     fontSize: '2.5em',
     textAlign: "center",
     marginBottom: "1em",
+  },
+  tableWrapper: {
+    width: '100%',
+    overflowX: 'auto',
   },
   table: {
     width: '100%',
@@ -28,6 +33,7 @@ const c = s9.create({
     width: '100%',
     paddingRight: '12px',
     borderRight: '2px solid #ccc',
+    fontVariantNumeric: 'tabular-nums',
   },
   row: {
     borderBottom: '2px solid #444',
@@ -73,25 +79,44 @@ export default function Table({ params }: Props) {
     <>
       <h2 className={s9(c.heading)}>מועדים</h2>
 
-      <table className={s9(c.table)}>
-        <thead>
-          <tr>
-            <th className={s9(c.tableHead, c.cell)}>מה</th>
-            <th className={s9(c.tableHead, c.cell, c.datesCol)}>מתי</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {deadlines.map(deadline => (
-            <tr className={s9(c.row)} key={deadline.name}>
-              <th className={s9(c.cell)}>{deadline.name}</th>
-              <td className={s9(c.cell, c.datesCol)}>
-                {deadline.date.toLocaleDateString('he')}
-              </td>
+      <div className={s9(c.tableWrapper)}>
+        <table className={s9(c.table)}>
+          <thead>
+            <tr>
+              <th className={s9(c.tableHead, c.cell)}>מה</th>
+              <th className={s9(c.tableHead, c.cell, c.datesCol)}>מתי</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {deadlines.map(deadline => {
+              const holiday = HebrewCalendar.calendar({
+                isHebrewYear: false,
+                start: deadline.date,
+                end: deadline.date,
+                noMinorFast: true,
+                noSpecialShabbat: true,
+                noRoshChodesh: true,
+                il: true,
+              });
+              const hebHoliday = holiday.length
+                ? Locale.lookupTranslation(holiday[0].basename(), 'he-X-NoNikud')
+                : undefined;
+              return (
+                <tr className={s9(c.row)} key={deadline.name}>
+                  <th className={s9(c.cell)}>{deadline.name}</th>
+                  <td className={s9(c.cell, c.datesCol)}>
+                    {deadline.date.toLocaleDateString('en-UK', { day: '2-digit', month: '2-digit', year: 'numeric', })} 
+                    {' '}
+                    (יום {deadline.date.toLocaleDateString('he', {weekday: 'narrow',})[0]}
+                    {hebHoliday ? `, ${hebHoliday})` : ')'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <br />
       <footer className={s9(c.footer)}>
         <strong>כתב תשובה:</strong> {lastDoc.toLocaleDateString('he')} | <strong>קדם משפט:</strong> {pretrial.toLocaleDateString('he')}
