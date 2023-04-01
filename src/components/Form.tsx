@@ -75,18 +75,18 @@ export default function Form() {
   const [ isDocError, setIsDocError, ] = React.useState<boolean>(false);
   const [ isPretrialError, setIsPretrialError, ] = React.useState<boolean>(false);
 
-  function onSubmit(evt: React.FormEvent) {
+  function onSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     let isError = false;
     const lastDocValue = lastDocRef.current?.value;
     const pretrialValue = pretrialRef.current?.value;
 
-    if (!(lastDocValue && lastDocRef.current?.valueAsDate)) {
+    if (!(lastDocValue && lastDocRef.current.valueAsDate)) {
       setIsDocError(true);
       isError = true;
     }
-    if (!pretrialValue && pretrialRef.current?.valueAsDate) {
+    if (!(pretrialValue && pretrialRef.current.valueAsDate)) {
       setIsPretrialError(true);
       isError = true;
     }
@@ -95,6 +95,17 @@ export default function Form() {
 
     router.push(`/${lastDocValue}/${pretrialValue}`)
   }
+
+  function onChange(_evt: React.ChangeEvent<HTMLInputElement>) {
+    const lastDocValue = lastDocRef.current?.value;
+    const pretrialValue = pretrialRef.current?.value;
+
+    const isAllInputsFilled = lastDocValue && pretrialValue;
+    const isAllInputsHaveValidDates = isAllInputsFilled
+      && lastDocRef.current.valueAsDate && pretrialRef.current.valueAsDate;
+
+    if (isAllInputsHaveValidDates) router.prefetch(`/${lastDocValue}/${pretrialValue}`);
+ }
 
   return (
     <form className={s9(c.form)} onSubmit={onSubmit}>
@@ -106,6 +117,7 @@ export default function Form() {
             dir="ltr"
             id="lastDoc"
             name="lastDoc"
+            onChange={onChange}
             ref={lastDocRef}
             required
             type="date"
@@ -118,6 +130,7 @@ export default function Form() {
             dir="ltr"
             id="pretrial"
             name="pretrial"
+            onChange={onChange}
             ref={pretrialRef}
             required
             type="date"
