@@ -84,30 +84,32 @@ export default function Form() {
     let isError = false;
     const lastDocValue = lastDocRef.current?.value;
     const pretrialValue = pretrialRef.current?.value;
+    const lastDocAsDate = lastDocRef.current?.valueAsDate;
+    const pretrialAsDate = pretrialRef.current?.valueAsDate;
 
-    if (!(lastDocValue && lastDocRef.current.valueAsDate)) {
+    if (!(lastDocValue && lastDocAsDate)) {
       setIsDocError(true);
       isError = true;
     }
-    if (!(pretrialValue && pretrialRef.current.valueAsDate)) {
+    if (pretrialValue && !pretrialAsDate) {
       setIsPretrialError(true);
       isError = true;
     }
 
     if (isError) return;
 
-    router.push(`/${lastDocValue}/${pretrialValue}`)
+    if (!pretrialAsDate) router.push(`/${lastDocValue}`)
+    else router.push(`/${lastDocValue}/${pretrialValue}`)
   }
 
   function onChange(_evt: React.ChangeEvent<HTMLInputElement>) {
     const lastDocValue = lastDocRef.current?.value;
     const pretrialValue = pretrialRef.current?.value;
+    const lastDocIsValid = lastDocValue && lastDocRef.current.valueAsDate;
+    const pretrialIsValid = pretrialValue && pretrialRef.current.valueAsDate;
 
-    const isAllInputsFilled = lastDocValue && pretrialValue;
-    const isAllInputsHaveValidDates = isAllInputsFilled
-      && lastDocRef.current.valueAsDate && pretrialRef.current.valueAsDate;
-
-    if (isAllInputsHaveValidDates) router.prefetch(`/${lastDocValue}/${pretrialValue}`);
+    if (lastDocIsValid && !pretrialIsValid) router.prefetch(`/${lastDocValue}`);
+    if (lastDocIsValid && pretrialIsValid) router.prefetch(`/${lastDocValue}/${pretrialValue}`);
  }
 
   return (
@@ -137,7 +139,6 @@ export default function Form() {
             name="pretrial"
             onChange={onChange}
             ref={pretrialRef}
-            required
             type="date"
           />
         </label>

@@ -1,3 +1,5 @@
+import "@total-typescript/ts-reset";
+
 import s9 from "style9";
 import IconSprite from "@/components/IconSprite";
 import { Open_Sans } from "next/font/google";
@@ -9,7 +11,7 @@ import './globals.css'
 import type { NextFontWithVariable } from "next/dist/compiled/@next/font/dist/types";
 
 const c = s9.create({
-  body: {},
+body: {},
   main: {
     paddingTop: "24px",
     paddingBottom: "16px",
