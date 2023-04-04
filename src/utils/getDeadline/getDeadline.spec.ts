@@ -1,4 +1,3 @@
-/** @jest-environment node */
 import getDeadline from "./getDeadline";
 
 test("return correct before deadline within same month", () => {
