@@ -1,4 +1,5 @@
 import { addDays, subDays } from "date-fns";
+import { HebrewCalendar, Locale } from "@hebcal/core";
 
 const offdays = [
   // 2023
@@ -411,6 +412,21 @@ interface GetDeadlineAfterArgs extends DeadlineStartDate {
 
 type GetDeadlineArgs = GetDeadlineAfterArgs | GetDeadlineBeforeArgs;
 
+const holidays = [
+  "Erev Pesach",
+  "Pesach I",
+  "Pesach VII",
+  "Erev Shavuot",
+  "Shavuot",
+  "Yom HaAtzma'ut",
+  "Erev Yom Kippur",
+  "Yom Kippur",
+  "Erev Sukkot",
+  "Sukkot I",
+  "Shmini Atzeret",
+]
+// "h.includes('Rosh Hashana')",
+
 // TODO: Add checks for holidays, Fridays and Saturdays
 // TODO: Integrate with Google Calendar
 export default function getDeadline({
@@ -423,11 +439,30 @@ export default function getDeadline({
   const toDeadlne = isBackwards ? subDays : addDays;
 
   const deadline = toDeadlne(startDate, distance);
+  const deadlineIsFri = deadline.getDay() === 5;
+  const deadlineIsSat = deadline.getDay() === 6;
+  const deadlineIsWeekend = deadlineIsFri || deadlineIsSat;
+  const holiday = HebrewCalendar.calendar({
+    isHebrewYear: false,
+    start: deadline,
+    end: deadline,
+    noMinorFast: true,
+    noSpecialShabbat: true,
+    noRoshChodesh: true,
+    il: true,
+  });
+
   const deadlineAsNumber = deadline.valueOf();
 
   const offdaysGroup = offdays.find(offdaysGroup => offdaysGroup.includes(deadlineAsNumber));
 
-  if (!offdaysGroup) return deadline;
+
+  if (!offdaysGroup) {
+    if (deadlineIsWeekend) {
+      return getDeadline({ startDate: deadline, after: 1, });
+    }
+    return deadline;
+  }
 
 
   if (isBackwards) {
