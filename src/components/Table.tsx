@@ -34,7 +34,7 @@ const c = s9.create({
   datesCol: {
     width: '100%',
     paddingRight: '12px',
-    borderRight: '2px solid #ccc',
+    borderRight: '2px solid #eee',
     fontVariantNumeric: 'tabular-nums',
   },
   row: {

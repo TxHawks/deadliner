@@ -1,4 +1,3 @@
-import LayoutContainer from "@/components/LayoutContainer";
 import s9 from "style9";
 
 const c = s9.create({

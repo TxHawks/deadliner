@@ -24,7 +24,7 @@ body: {},
     color: '#e3008e',
   },
   dataWrapper: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#eee",
     border: "3px solid #444",
     borderRadius: '16px',
     padding: '13px',
@@ -62,7 +62,7 @@ export default function RootLayout({
 
         <LayoutContainer>
           <main className={s9(c.main)}>
-            <h1 className={s9(c.title)}>המועדונית</h1>
+            <h1 className={s9(c.title)}>המועֵדונית</h1>
             <Form />
             <div className={s9(c.dataWrapper)}>
             {children}
