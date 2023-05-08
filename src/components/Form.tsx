@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import s9 from "style9";
-import { useRouter, useParams, } from 'next/navigation';
+import { useRouter, usePathname, } from 'next/navigation';
+// import { useRouter, useParams, } from 'next/navigation';
 
 const c = s9.create({
   form: {
@@ -71,7 +72,9 @@ const c = s9.create({
 
 export default function Form() {
   const router = useRouter();
-  const { lastDoc, pretrial, } = useParams();
+  const pathname = usePathname();
+  const [ lastDoc, pretrial ] = pathname.split('/').slice(1,3);
+  // const { lastDoc, pretrial, } = useParams();
 
   const lastDocRef = React.useRef<HTMLInputElement>(null);
   const pretrialRef = React.useRef<HTMLInputElement>(null);
