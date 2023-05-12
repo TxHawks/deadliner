@@ -64,7 +64,7 @@ export default function Table({ lastDoc, pretrial }: TableProps) {
     lastDocAsDate && { name: 'קביעת פגישת מהות', date: getDeadline({ startDate: lastDocAsDate,  after: 45}), },
     lastDocAsDate && { name: 'הגשת בקשות', date: getDeadline({ startDate: lastDocAsDate,  after: 60}), },
     lastDocAsDate && { name: 'תשובה לשאלונים', date: getDeadline({ startDate: lastDocAsDate,  after: 60}), },
-    lastDocAsDate && { name: 'עיון במסמכים', date: getDeadline({ startDate: lastDocAsDate,  after: 60}), },
+    // lastDocAsDate && { name: 'עיון במסמכים', date: getDeadline({ startDate: lastDocAsDate,  after: 60}), },
     lastDocAsDate && { name: 'גילוי ספציפי', date: getDeadline({ startDate: lastDocAsDate,  after: 60}), },
     lastDocAsDate && { name: 'מענה לגילוי ספציפי', date: getDeadline({ startDate: lastDocAsDate,  after: 90}), },
 
